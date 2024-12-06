@@ -10,7 +10,8 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
     (props, ref) => {
         return (
             <div className="rich-text-editor">
-                <ReactQuill ref={ref} {...props} />
+                <ReactQuill ref={ref} {...props}                     modules={{ toolbar: false }} // Disables the toolbar
+ />
             </div>
         )
     }
