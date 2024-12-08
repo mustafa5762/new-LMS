@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Card from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
-import { HiOutlineUser, HiOutlineGlobe, HiOutlineLocationMarker, HiOutlinePhone, HiOutlineSpeakerphone, HiOutlineFlag } from 'react-icons/hi';
+import { HiOutlineUser, HiOutlineGlobe, HiOutlineLocationMarker, HiOutlinePhone, HiOutlineSpeakerphone, HiOutlineFlag, HiOutlineMail } from 'react-icons/hi';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Button from '@/components/ui/Button'
@@ -203,6 +203,25 @@ function InstituteProfile() {
                   <p className="text-red-500 text-xs mt-1">{formik.errors.city}</p>
                 ) : null}
               </div>
+
+                 {/* Email */}
+                 <div className="mt-6">
+                <label>Email</label>
+                <Input
+                  name="email"
+                  placeholder="Enter Institute Email"
+                  prefix={<HiOutlineMail className="text-lg" />}
+                  className="mt-1.5"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  invalid={formik.touched.email && formik.errors.email}
+                />
+                {formik.touched.email && formik.errors.email ? (
+                  <p className="text-red-500 text-xs mt-1">{formik.errors.email}</p>
+                ) : null}
+              </div>
+
 
               {/* Submit Button */}
               <div className="mt-6">

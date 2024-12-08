@@ -12,37 +12,41 @@ import useUpdate from '../../utils/hooks/useUpdate';
 import BankDetails from './BankDetails';
 
 function BankProfile() {
-  // Fetch the bank details using the custom hook
   const { data: bankData, loading: reading, error: readError } = useRead('https://lms.webarchitectslab.com/api/bank-info/671976fb66d8fb3dc77de501');
-  
-  // Update function from your reusable hook
   const { update, loading: updating, error: updateError } = useUpdate('https://lms.webarchitectslab.com/api/bank-info');
 
-  // Formik form initialization
   const formik = useFormik({
     initialValues: {
       bankName: '',
       branch: '',
       accountNumber: '',
+      IBAN: '',
+      accountTitle: '',
+      branchCode: '',
     },
     validationSchema: Yup.object({
       bankName: Yup.string().required('Bank Name is required'),
       branch: Yup.string().required('Branch Name is required'),
       accountNumber: Yup.string().required('Account Number is required'),
+      IBAN: Yup.string().required('IBAN is required'),
+      accountTitle: Yup.string().required('Account Title is required'),
+      branchCode: Yup.string().required('Branch Code is required'),
     }),
     onSubmit: (values) => {
       update(bankData._id, values);
     },
-    enableReinitialize: true, // To update form values when fetching data is completed
+    enableReinitialize: true,
   });
 
-  // Populate the form with fetched data when available
   useEffect(() => {
     if (bankData) {
       formik.setValues({
         bankName: bankData.bankName || '',
         branch: bankData.branch || '',
-        accountNumber: bankData.accountNumber || ''
+        accountNumber: bankData.accountNumber || '',
+        IBAN: bankData.IBAN || '',
+        accountTitle: bankData.accountTitle || '',
+        branchCode: bankData.branchCode || '',
       });
     }
   }, [bankData]);
@@ -65,8 +69,7 @@ function BankProfile() {
           <Card>
             <h5>Update Bank Details</h5>
             <form onSubmit={formik.handleSubmit}>
-              
-              {/* Bank Name */}
+              {/* Existing fields */}
               <div className="mt-6">
                 <label>Bank Name</label>
                 <Input
@@ -79,13 +82,13 @@ function BankProfile() {
                   onBlur={formik.handleBlur}
                   invalid={formik.touched.bankName && formik.errors.bankName}
                 />
-                {formik.touched.bankName && formik.errors.bankName ? (
+                {formik.touched.bankName && formik.errors.bankName && (
                   <p className="text-red-500 text-xs mt-1">{formik.errors.bankName}</p>
-                ) : null}
+                )}
               </div>
 
-              {/* Branch Name */}
-              <div className="mt-6">
+               {/* Branch Name */}
+               <div className="mt-6">
                 <label>Branch Name</label>
                 <Input
                   name="branch"
@@ -118,6 +121,55 @@ function BankProfile() {
                 {formik.touched.accountNumber && formik.errors.accountNumber ? (
                   <p className="text-red-500 text-xs mt-1">{formik.errors.accountNumber}</p>
                 ) : null}
+              </div>
+
+              {/* New fields */}
+              <div className="mt-6">
+                <label>IBAN</label>
+                <Input
+                  name="IBAN"
+                  placeholder="Enter IBAN"
+                  className="mt-1.5"
+                  value={formik.values.IBAN}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  invalid={formik.touched.IBAN && formik.errors.IBAN}
+                />
+                {formik.touched.IBAN && formik.errors.IBAN && (
+                  <p className="text-red-500 text-xs mt-1">{formik.errors.IBAN}</p>
+                )}
+              </div>
+
+              <div className="mt-6">
+                <label>Account Title</label>
+                <Input
+                  name="accountTitle"
+                  placeholder="Enter Account Title"
+                  className="mt-1.5"
+                  value={formik.values.accountTitle}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  invalid={formik.touched.accountTitle && formik.errors.accountTitle}
+                />
+                {formik.touched.accountTitle && formik.errors.accountTitle && (
+                  <p className="text-red-500 text-xs mt-1">{formik.errors.accountTitle}</p>
+                )}
+              </div>
+
+              <div className="mt-6">
+                <label>Branch Code</label>
+                <Input
+                  name="branchCode"
+                  placeholder="Enter Branch Code"
+                  className="mt-1.5"
+                  value={formik.values.branchCode}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  invalid={formik.touched.branchCode && formik.errors.branchCode}
+                />
+                {formik.touched.branchCode && formik.errors.branchCode && (
+                  <p className="text-red-500 text-xs mt-1">{formik.errors.branchCode}</p>
+                )}
               </div>
 
               {/* Submit Button */}

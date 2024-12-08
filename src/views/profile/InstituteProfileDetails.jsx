@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from '@/components/ui/Card';
 import Loading from '@/components/shared/Loading'
-import {HiOutlineGlobe, HiOutlineLocationMarker, HiOutlinePhone, HiOutlineFlag } from 'react-icons/hi';
+import {HiOutlineGlobe, HiOutlineLocationMarker, HiOutlinePhone, HiOutlineFlag, HiOutlineMail } from 'react-icons/hi';
 
 function InstituteProfileDetails({reading,updating,data}) {
 
@@ -34,6 +34,10 @@ function InstituteProfileDetails({reading,updating,data}) {
                 <div className="flex items-center space-x-2">
                     <HiOutlineFlag className="text-lg"/>
                     <p>{data.country}</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <HiOutlineMail className="text-lg"/>
+                    <p>{data.email}</p>
                 </div>
             </div>
         </div>
