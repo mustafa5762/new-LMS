@@ -8,6 +8,8 @@ import AddStudent from '@/views/students/AddStudent';
 import AllStudents from '@/views/students/AllStudents';
 import AddClass from '@/views/classes/AddClass';
 import AllClasses from '@/views/classes/AllClasses';
+import AllHomeworks from '@/views/homework/AllHomeworks';
+import AddHomeworks from '@/views/homework/AddHomework';
 import AddSubject from '@/views/subjects/AddSubject';
 import AllSubjects from '@/views/subjects/AllSubjects';
 import CreateTimeTable from '@/views/timetable/CreateTimeTable';
@@ -89,6 +91,18 @@ export const protectedRoutes = [
         key: 'all_classes',
         path: '/all_classes',
         component: AllClasses,
+        authority: [],
+    },
+    {
+        key: 'add_homework',
+        path: '/add_homework',
+        component: AddHomeworks,
+        authority: [],
+    },
+    {
+        key: 'all_homework',
+        path: '/all_homework',
+        component: AllHomeworks,
         authority: [],
     },
     {
