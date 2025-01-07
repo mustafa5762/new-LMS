@@ -1,43 +1,44 @@
 import React from 'react';
 import useRead from '../../utils/hooks/useRead';
 import Card from '@/components/ui/Card';
-import { HiOutlineDocumentText } from 'react-icons/hi';
-import { format } from 'date-fns';
+import { FaFileAlt, FaUser, FaClipboard } from 'react-icons/fa';
 
+function AllReports() {
+  const { data, loading, error } = useRead('https://lms.webarchitectslab.com/api/reports'); // Replace with your actual API endpoint
 
-function AllHomeworks() {
-  const { data, loading, error } = useRead('https://lms.webarchitectslab.com/api/homework'); // Replace with your actual API endpoint
-
-  // Define gradient classes
+  // Define gradient classes and icons
   const gradientClasses = [
-    'bg-gradient-to-br from-indigo-600 to-indigo-400',
-    'bg-gradient-to-r from-green-600 to-green-400',
-    'bg-gradient-to-r from-red-600 to-red-400',
-    'bg-gradient-to-r from-amber-600 to-amber-400',
+    'bg-gradient-to-br from-pink-600 to-pink-400',
+    'bg-gradient-to-r from-yellow-600 to-yellow-400',
+    'bg-gradient-to-r from-teal-600 to-teal-400',
+    'bg-gradient-to-r from-orange-600 to-orange-400',
     'bg-gradient-to-r from-blue-600 to-blue-400',
     'bg-gradient-to-r from-purple-600 to-purple-400',
-    'bg-gradient-to-r from-cyan-600 to-cyan-400',
   ];
+
+  const reportIcons = [<FaFileAlt />, <FaUser />, <FaClipboard />];
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">All Homeworks</h2>
+      <h2 className="font-bold mb-4">All Reports</h2>
       <p className="text-gray-600">
-        Browse through all the homework assignments.
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet, deleniti.
       </p>
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-6 mt-8">
-        {data.map((homework, index) => (
+        {data.map((report, index) => (
           <Card
-            key={homework._id}
+            key={report._id}
             className={`${gradientClasses[index % gradientClasses.length]} text-white p-6 rounded-lg shadow-md relative overflow-hidden`}
           >
             {/* Block pattern */}
             <div
               className="absolute inset-0 grid grid-cols-4 gap-1 opacity-5"
-              style={{ background: `rgba(255, 255, 255, 0.01)` }}
+              style={{
+                background: `rgba(255, 255, 255, 0.01)`,
+              }}
             >
               {Array.from({ length: 16 }).map((_, i) => (
                 <div key={i} className="bg-white w-full h-full"></div>
@@ -46,20 +47,20 @@ function AllHomeworks() {
 
             {/* Icon */}
             <div className="absolute top-4 right-4 text-4xl text-white opacity-70">
-              <HiOutlineDocumentText />
+              {reportIcons[index % reportIcons.length]}
             </div>
 
             {/* Card content */}
             <div className="mt-4 text-left relative z-10">
-              <h2 className="text-white drop-shadow-lg text-xl font-semibold">
-                {homework.homeworkTitle}
+              <h2 className="text-white drop-shadow-lg text-xg font-semibold">
+                {report.reportTitle}
               </h2>
               <h5 className="text-white mt-1 opacity-80 font-medium drop-shadow-lg">
-                {homework?.classGrade?.name || 'No Class Assigned'}
+                Student: {report?.studentName?.studentDetails?.name || 'N/A'}
               </h5>
-              <p className="text-white mt-2 opacity-70">
-  {format(new Date(homework.dueDate), 'MMMM dd, yyyy')}
-</p>
+              <p className="text-white mt-2 opacity-90 text-sm">
+                {report.description}
+              </p>
             </div>
           </Card>
         ))}
@@ -68,4 +69,4 @@ function AllHomeworks() {
   );
 }
 
-export default AllHomeworks;
+export default AllReports;
