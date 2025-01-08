@@ -26,6 +26,10 @@ import StudentAttendance from '@/views/student_attendance/Attendance';
 import TeacherProfile from '@/views/teacher_profile/Profile';
 import TeacherTimetable from '@/views/teacher_timetable/Timetable';
 import TeacherAttendance from '@/views/teacher_attendance/Attendance';
+import AddReport from '@/views/reports/AddReport';
+import ViewReport from '@/views/reports/ViewReport';
+import AddDateSheet from '@/views/dateSheet/addDateSheet';
+import ViewDateSheet from '@/views/dateSheet/viewDateSheet';
 
 import authRoute from './authRoute';
 import type { Routes } from '@/@types/routes';
@@ -199,6 +203,30 @@ export const protectedRoutes = [
         key: 'teacher_attendance_record',
         path: '/teacher_attendance_record',
         component: TeacherAttendance,
+        authority: [],
+    },
+    {
+        key: 'add_report',
+        path: '/add_report',
+        component: AddReport,
+        authority: [],
+    },
+    {
+        key: 'view_report',
+        path: '/view_report',
+        component: ViewReport,
+        authority: [],
+    },
+    {
+        key: 'add_date_sheet',
+        path: '/add_date_sheet',
+        component: AddDateSheet,
+        authority: [],
+    },
+    {
+        key: 'view_date_sheet',
+        path: '/view_date_sheet',
+        component: ViewDateSheet,
         authority: [],
     },
 ];
